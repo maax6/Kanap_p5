@@ -2,7 +2,6 @@
 const url = "http://localhost:3000/api/products/";
 
 
-
 function getProducts() {
   fetch(url).then((data) =>
     data.json()
@@ -33,3 +32,4 @@ function getProducts() {
 
 getProducts();
 
+ 
