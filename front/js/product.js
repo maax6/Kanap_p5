@@ -1,5 +1,3 @@
-//Afficher les produits
-
 // Récupérer l'id du produit que le visiteur visite
 let newUrl = new URL(window.location.href);
 console.log(newUrl);
@@ -14,19 +12,39 @@ console.log(urlProduct)
 function getProductDetails() {
     fetch(urlProduct)
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      return data;
+    .then(data => {      
+      // console.log(data)
+
+      let colors = data.colors; 
+      console.log("Les couleurs disponibles sont  🚥🚥  "+colors)
+
+      let id = data._id;
+      console.log("ID du produit 🚥🚥  " + id);
+      
+      let name = data.name ; 
+      console.log("NOM DU KANAP  🚥🚥  "  + name)
+      
+      let price = data.price ; 
+      console.log("prix 🚥🚥 "  + price +" €")
+      
+      let imageUrl = data.imageUrl ; 
+      console.log("Adresse de la photo 🚥🚥 "  + imageUrl)
+      
+      let description = data.description ; 
+      console.log("Description du produit 🚥🚥 "  + description)
+     
+      let altTxt = data.altTxt ; 
+      console.log("Texte alternatif à l'image 🚥🚥 "  + altTxt)
+
+    
+
     })
 
-    } ;
+} ;
+getProductDetails()
 
-//     .then(function(res) {
-//           let name = res.name
-//       res.json()
-//         .then((data) => {
-// console.log();
-// })})}
+console.log();
+
 
 
 
@@ -49,4 +67,3 @@ function getProductDetails() {
 
      
 // }
-// productId()
