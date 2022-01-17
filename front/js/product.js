@@ -1,33 +1,52 @@
 //Afficher les produits
-const url = 'http://localhost:3000/api/products/';
-
-// http://localhost.../id?=126440
-const getId = new URL(window.location.href);
-const id = getId.searchParams.get('id');
-
-
-
 
 // Récupérer l'id du produit que le visiteur visite
-// const id = ;
+let newUrl = new URL(window.location.href);
+console.log(newUrl);
+//isoler l'ID dans l'URL
+let getId = newUrl.searchParams.get('id');
+console.log(getId);
+
+let urlProduct = `http://localhost:3000/api/products/${getId}`;
+console.log(urlProduct)
+
+
+function getProductDetails() {
+    fetch(urlProduct)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      return data;
+    })
+
+    } ;
+
+//     .then(function(res) {
+//           let name = res.name
+//       res.json()
+//         .then((data) => {
+// console.log();
+// })})}
+
+
+
+
+
 
 // Récupérer le produit en question  Fonction ( fetch )
-// http://localhost:3000/api/products/ID
+// const products = await fetch(`http://localhost:3000/api/products/${getId}`)
+//http://localhost:3000/api/products/ID
 
 
+// function productId(){
 
-function productId(){
-
-    fetch(url + id).then((data) =>
-    data.json()
-    .then((data) => {
-
-        console.log(data)
-     }
-    ))
+//     fetch(url + id).then((data) =>
+//     data.json()
+//     .then((data) => {
+//         console.log(data)
+//      }
+//     ))
 
      
-}
-productDetail();
-
-//Recupérer la couleur et l'ajouter via js 
+// }
+// productId()
