@@ -1,7 +1,7 @@
 function getCart() {
   let cart = localStorage.getItem("cart")
   if(cart == null){
-    return [];
+    return alert("Votre panier est vide");
   }
     else {
       return JSON.parse(cart);

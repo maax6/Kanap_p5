@@ -1,9 +1,9 @@
 // Récupérer l'id du produit que le visiteur visite
 let newUrl = new URL(window.location.href);
 //isoler l'ID dans l'URL
-let getId = newUrl.searchParams.get('id');
-//Le repas de fetch est servi ici
-let urlProduct = `http://localhost:3000/api/products/${getId}`;
+let idKanap = newUrl.searchParams.get('id');
+// l'URL pour fetch s'apelle urlPRoduct
+let urlProduct = `http://localhost:3000/api/products/${idKanap}`;
 
 //La fonction suivante va chercher les infos de l'item ciblé par ID sur l'API, les traduit en JSON et intègre le html nécéssaire
 function getProductDetails() {
@@ -32,21 +32,26 @@ function getProductDetails() {
 } ;
 getProductDetails()
 
-//Gerer le panier.
+
+
+///////////////////
+//Gerer le panier//
+///////////////////
+const chosenColor = document. querySelector("#colors");
+const chosenQuantity = document.querySelector("#quantity");
+const btn_addToCart = document.querySelector('#addToCart');
+
 
 //Enregistrer le produit dans le localStorage "cart"
 function saveCart(cart){
   localStorage.setItem("cart", JSON.stringify(cart));
-  document.querySelector("addToCart").addEventListener.onClick
+  btn_addToCart.addEventListener("click",   
+  )
 
-  
+
+
+
 }
-
-const btn_addToCart = document.querySelector('#addToCart');
-
-
-
-
 
 
 
