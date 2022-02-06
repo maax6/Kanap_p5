@@ -1,10 +1,10 @@
-// Récupérer l'id du produit que le visiteur visite
+// Récupérer l'id du produit que le visiteur consulte.
 const newUrl = new URL(window.location.href);
-//isoler l'ID dans l'URL
+//isoler l'ID dans l'URL.
 let ID = newUrl.searchParams.get('id');
-// l'URL pour fetch s'apelle urlProduct
+// l'URL pour fetch s'apelle urlProduct.
 const urlProduct = `http://localhost:3000/api/products/${ID}`;
-//La fonction suivante va chercher les infos de l'item ciblé par ID sur l'API, les traduit en JSON et intègre le html nécéssaire
+//La fonction suivante va chercher les infos de l'item ciblé par ID sur l'API, les traduit en JSON et intègre le html nécéssaire.
 function getProductDetails() {
   fetch(urlProduct)
   .then(response => response.json())
@@ -31,13 +31,12 @@ getProductDetails()
 ///////////////////
 
 
-
 // Enregistrer le produit dans le localStorage sous la clé cart "cart".
 document.getElementById('addToCart').addEventListener("click", (event)=>{
   event.preventDefault();
-  // let price = document.querySelector("#price").value;
   let chosenColor = document. querySelector("#colors").value;
   let chosenQuantity = document.querySelector("#quantity").value;
+  // let price = document.querySelector("#price").value;NONEED
   // let nameItem = document.querySelector("#name").value;NONEED
   // let description = document.querySelector("#description").value;NONEED
   // let image = document.querySelector(".item__img").value; NONEED
@@ -48,7 +47,8 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
       chosenQuantity,
       // nameItem, NONEED
       // description,NONEED
-      // image  NONEED
+      // image,  NONEED
+      //price, NONEED
     }
     console.log("l'objet \"article\" est defini");
 
@@ -68,7 +68,7 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
     console.log("toto")
     if(!found){
       let article = {
-        idProduct,
+        ID,
         chosenColor,
         chosenQuantity,
         // imgProduit: data.imageUrl,
