@@ -1,9 +1,7 @@
-// Récupérer l'id du produit que le visiteur consulte.
-const newUrl = new URL(window.location.href);
-//isoler l'ID dans l'URL.
-let ID = newUrl.searchParams.get('id');
-// l'URL pour fetch s'apelle urlProduct.
-const urlProduct = `http://localhost:3000/api/products/${ID}`;
+
+const newUrl = new URL(window.location.href);// Récupérer l'id du produit que le visiteur consulte.
+let ID = newUrl.searchParams.get('id');//isoler l'ID dans l'URL.
+const urlProduct = `http://localhost:3000/api/products/${ID}`;// l'URL pour fetch s'apelle urlProduct.
 //La fonction suivante va chercher les infos de l'item ciblé par ID sur l'API, les traduit en JSON et intègre le html nécéssaire.
 function getProductDetails() {
   fetch(urlProduct)
@@ -26,64 +24,46 @@ function getProductDetails() {
 } ;
 getProductDetails()
 
-///////////////////
-//Gerer le panier//
-///////////////////
-
-
-// Enregistrer le produit dans le localStorage sous la clé cart "cart".
+//////////////////
+//Gestion panier//
+//////////////////
+// Enregistrer le produit dans le localStorage sous la clé cart "cart.
 document.getElementById('addToCart').addEventListener("click", (event)=>{
   event.preventDefault();
   let chosenColor = document. querySelector("#colors").value;
   let chosenQuantity = document.querySelector("#quantity").value;
-  // let price = document.querySelector("#price").value;NONEED
-  // let nameItem = document.querySelector("#name").value;NONEED
-  // let description = document.querySelector("#description").value;NONEED
-  // let image = document.querySelector(".item__img").value; NONEED
   if (chosenQuantity > 0 || chosenQuantity <=100 ){
     let article = {
       ID,
       chosenColor,
-      chosenQuantity,
-      // nameItem, NONEED
-      // description,NONEED
-      // image,  NONEED
-      //price, NONEED
+      chosenQuantity
     }
-    console.log("l'objet \"article\" est defini");
-
     let productLocalStorage = JSON.parse(localStorage.getItem("cart")) ||[];
     let found = false;
     for (let product of productLocalStorage){
-      // if ( id && SAMEID && meme couleur, modifier quantité + quantité à ajouter){
-      // afficher l'info avec console.log()
-       if (ID === productLocalStorage.ID && colors === productLocalStorage.chosenColor) {
-        chosenQuantity = parseInt(chosenQuantity) + parseInt(productLoalStorage.chosenQuantity);
+      if (ID === productLocalStorage.ID && chosenColor === productLocalStorage.chosenColor) {
+        let chosenQuantity = parseInt(chosenQuantity) + parseInt(productLocalStorage.chosenQuantity);
+        console.log("Test");
         found = true;
+        
         break;
       }
-      else { parseInt(chosenQuantity)}
-      console.log(product);
+      else {
+        parseInt(chosenQuantity);
+      }
     }
-    console.log("toto")
     if(!found){
       let article = {
         ID,
         chosenColor,
         chosenQuantity,
-        // imgProduit: data.imageUrl,
-        // altImgProduit: data.altTxt
-     }
-
-
-    productLocalStorage.push(article);
-    }
-    localStorage.setItem("cart", JSON.stringify(productLocalStorage));
-  };
-
-    // cart.localStorage.setItem.parse(cart);
-    //Récupérer Price, Couleur, et quantité.
-    // les stocker dans le localstorage.
-    // localStorage.setItem("cart"), JSON.parse(cart);
-  });
+      }
+      productLocalStorage.push(article);
+    } 
+    localStorage.setItem("Cart", JSON.stringify(productLocalStorage));
+  } 
+  else {
+    window.alert("Veuillez modifer la quantitié")
+  }
+});
 
