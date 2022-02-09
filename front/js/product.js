@@ -32,7 +32,7 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
   event.preventDefault();
   let chosenColor = document. querySelector("#colors").value;
   let chosenQuantity = document.querySelector("#quantity").value;
-  if (chosenQuantity > 0 || chosenQuantity <=100 ){
+  if (chosenQuantity > 0 && chosenQuantity <= 100 ){
     let article = {
       ID,
       chosenColor,
@@ -40,18 +40,14 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
     }
     let productLocalStorage = JSON.parse(localStorage.getItem("cart")) ||[];
     let found = false;
-    for (let product of productLocalStorage){
-      if (ID === productLocalStorage.ID && chosenColor === productLocalStorage.chosenColor) {
-        let chosenQuantity = parseInt(chosenQuantity) + parseInt(productLocalStorage.chosenQuantity);
-        console.log("Test");
+    for (let product of productLocalStorage) {
+      if (ID === product.ID && chosenColor === product.chosenColor) {
+        product.quantity = parseInt(product.chosenQuantity) + parseInt(chosenQuantity);
         found = true;
-        
+        console.log("test")
         break;
       }
-      else {
-        parseInt(chosenQuantity);
-      }
-    }
+    };
     if(!found){
       let article = {
         ID,
@@ -60,10 +56,10 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
       }
       productLocalStorage.push(article);
     } 
-    localStorage.setItem("Cart", JSON.stringify(productLocalStorage));
+    localStorage.setItem("cart", JSON.stringify(productLocalStorage));
   } 
   else {
-    window.alert("Veuillez modifer la quantitié")
+    window.alert("Veuillez choisir une quantitié")
   }
 });
 
