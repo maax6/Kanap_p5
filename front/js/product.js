@@ -54,6 +54,7 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
         ID,
         chosenColor,
         chosenQuantity,
+        //ajouter toutes les autres infos sauf le prix
       }
       productLocalStorage.push(article);
     } 
