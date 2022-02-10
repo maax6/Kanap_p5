@@ -1,8 +1,8 @@
 
-const newUrl = new URL(window.location.href);// Récupérer l'id du produit que le visiteur consulte.
-let ID = newUrl.searchParams.get('id');//isoler l'ID dans l'URL.
-const urlProduct = `http://localhost:3000/api/products/${ID}`;// l'URL pour fetch s'apelle urlProduct.
-//La fonction suivante va chercher les infos de l'item ciblé par ID sur l'API, les traduit en JSON et intègre le html nécéssaire.
+const newUrl = new URL(window.location.href);// Récupérer l'id du produit que le visiteur consulte
+let ID = newUrl.searchParams.get('id');//isoler l'ID dans l'URL
+const urlProduct = `http://localhost:3000/api/products/${ID}`
+//La fonction suivante va chercher les infos de l'item ciblé par ID sur l'API, les traduit en JSON et intègre le html nécéssaire
 function getProductDetails() {
   fetch(urlProduct)
   .then(response => response.json())
@@ -32,17 +32,18 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
   event.preventDefault();
   let chosenColor = document. querySelector("#colors").value;
   let chosenQuantity = document.querySelector("#quantity").value;
-  if (chosenQuantity > 0 && chosenQuantity <= 100 ){
+  if (chosenQuantity > 0 && chosenQuantity <= 100 && chosenColor ){
     let article = {
       ID,
       chosenColor,
       chosenQuantity
-    }
+    };
+    // console.log(article)
     let productLocalStorage = JSON.parse(localStorage.getItem("cart")) ||[];
     let found = false;
     for (let product of productLocalStorage) {
       if (ID === product.ID && chosenColor === product.chosenColor) {
-        product.quantity = parseInt(product.chosenQuantity) + parseInt(chosenQuantity);
+        product.chosenQuantity = parseInt(product.chosenQuantity) + parseInt(chosenQuantity);
         found = true;
         console.log("test")
         break;
@@ -59,7 +60,7 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
     localStorage.setItem("cart", JSON.stringify(productLocalStorage));
   } 
   else {
-    window.alert("Veuillez choisir une quantitié")
+    window.alert("Veuillez choisir une quantitié ainsi qu'une couleur pour votre canapé 😉 🛋")
   }
 });
 
