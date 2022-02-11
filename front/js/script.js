@@ -3,8 +3,8 @@ const url = "http://localhost:3000/api/products/";
 
 //Fonction pour afficher les produits.
 function getProducts() {
-  fetch(url).then((data) =>
-    data.json()
+  fetch(url)
+    .then((data) =>data.json()
       .then((data) => {
         for (let i = 0; i < data.length; i++) { //itération pour chaque produit du fichier JSON.
           let name = data[i].name;
