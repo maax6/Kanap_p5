@@ -34,12 +34,12 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
   let chosenColor = document. querySelector("#colors").value;
   let chosenQuantity = document.querySelector("#quantity").value;
   if (chosenQuantity > 0 && chosenQuantity <= 100 && chosenColor ){
-    // let article = {
-    //   ID,
-    //   chosenColor,
-    //   chosenQuantity
-    // };
-    // console.log(article)
+    let article = {
+      ID,
+      chosenColor,
+      chosenQuantity
+    };
+    console.log(article)
     let productLocalStorage = JSON.parse(localStorage.getItem("cart")) ||[];
     let found = false;
     for (let product of productLocalStorage) {
