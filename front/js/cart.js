@@ -52,7 +52,7 @@ promiseProduct
                     </div>
                   </article>`;
                   console.log(displayItem)
-                    document.querySelector('#cart__items').innerHtml += displayItem;
+                    document.querySelector('#cart__items').innerHTML += displayItem;
               }
             }
           }
