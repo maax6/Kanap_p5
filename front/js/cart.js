@@ -9,26 +9,29 @@ console.log(cartArray) //(4) [{…}, {…}, {…}, {…}] localstorage
 mapID = (cartArray.map(item => item.ID));
 mapColor = (cartArray.map(item => item.chosenColor));
 mapQty = (cartArray.map(item => item.chosenQuantity));
-
-console.log(mapQty)
-console.log(mapColor)
-console.log(mapID)
+// console.log(mapQty)
+// console.log(mapColor)
+// console.log(mapID)
 
 
 const productsApi = "http://localhost:3000/api/products/";
 const promiseProduct =  fetch(productsApi);
 promiseProduct
 .then((response) => response.json()
-  .then((products) => {
+  .then(products => {
     for (let i = 0; i < cartArray.length; i++) {
         let product = false;
-        console.log("product = false")
         for (let j = 0; j < products.length; j++) {
-            if (localStorage.cartArray[i] !== undefined &&  products[j]._id !== undefined) {
+            if (cartArray[i] !== undefined &&  products[j]._id !== undefined) {
                 if (products[j]._id == cartArray[i].ID) {
-                    console.log("Par ici!")
                     product = products[j];
                     console.log(product);
+                    let name = product.name;
+                    let imageUrl = product.imageUrl;
+                    let price = product.price;
+                    let id = product._id;
+                    let description = product.description;
+                    let altTxt = product.altTxt; 
                   }
                 }
               }
