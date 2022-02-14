@@ -45,7 +45,7 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
       if (ID === product.ID && chosenColor === product.chosenColor) {
         product.chosenQuantity = parseInt(product.chosenQuantity) + parseInt(chosenQuantity);
         found = true;
-        console.log("test")
+        console.log("ajout same Qty same ID OK")
         break;
       }
     };
