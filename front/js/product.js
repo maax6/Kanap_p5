@@ -28,16 +28,17 @@ getProductDetails()
 //Gestion panier//
 //////////////////
 // Enregistrer le produit dans le localStorage sous la clé cart "cart.
+
 document.getElementById('addToCart').addEventListener("click", (event)=>{
   event.preventDefault();
   let chosenColor = document. querySelector("#colors").value;
   let chosenQuantity = document.querySelector("#quantity").value;
   if (chosenQuantity > 0 && chosenQuantity <= 100 && chosenColor ){
-    let article = {
-      ID,
-      chosenColor,
-      chosenQuantity
-    };
+    // let article = {
+    //   ID,
+    //   chosenColor,
+    //   chosenQuantity
+    // };
     // console.log(article)
     let productLocalStorage = JSON.parse(localStorage.getItem("cart")) ||[];
     let found = false;
@@ -54,7 +55,7 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
         ID,
         chosenColor,
         chosenQuantity,
-        //ajouter toutes les autres infos sauf le prix
+        //toutes les autres infos sauf le prix
       }
       productLocalStorage.push(article);
     } 
