@@ -39,7 +39,7 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
       chosenColor,
       chosenQuantity
     };
-    console.log(article)
+    // console.log(article)
     let productLocalStorage = JSON.parse(localStorage.getItem("cart")) ||[];
     let found = false;
     for (let product of productLocalStorage) {
