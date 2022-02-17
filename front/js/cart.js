@@ -1,10 +1,14 @@
-/**************/
+
+
+/**********************/
 /*Fetch & HTML Display*/
-/**************/
+/**********************/
 
 const cartArray = JSON.parse(localStorage.getItem("cart"));
 let totalPrice = 0;
 let totalItem = 0;
+
+
 // console.log(cartArray) //(4) [{…}, {…}, {…}, {…}] Localstorage
 let mapID = (cartArray.map(item => item.ID));
 let mapColors = (cartArray.map(item => item.chosenColor));
@@ -14,14 +18,14 @@ const promiseProduct =  fetch(productsApi);
 promiseProduct
 .then((response) => response.json()
   .then(products => {
-    console.log(products)
+    // console.log(products)
     for (let i = 0; i < cartArray.length; i++) {
         let product = false;
         for (let j = 0; j < products.length; j++) {
             if (cartArray[i] !== undefined &&  products[j]._id !== undefined) {
               if (products[j]._id == cartArray[i].ID) {
                 product = products[j];
-                console.log(product)
+                // console.log(product)
                 /**from API */
                 let name = product.name;
                 let imageUrl = product.imageUrl;
@@ -35,7 +39,7 @@ promiseProduct
                 /*Display HTML*/
                 /**************/
                 let displayItem =  
-                                  `<article class="cart__item" data-id="${id}" data-color="${color}">
+                                  `<article class="cart__item" data-id="${id}" data-color="${color}" id="${cartArray[i].ID + '-' +cartArray[i].chosenColor}">
                                     <div class="cart__item__img">
                                       <img src="${imageUrl}">
                                     </div>
@@ -52,12 +56,14 @@ promiseProduct
                                         </div>
                                         <div class="cart__item__content__settings__delete">
                                             <p class="deleteItem">Supprimer</p>
-                                      </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </article>`;
-                // console.log(displayItem)
-                document.querySelector('#cart__items').innerHTML += displayItem;
+                                  // console.log(displayItem)
+                                  
+                                  document.querySelector('#cart__items').innerHTML += displayItem;
+                                  addDeleteAction(cartArray[i].ID + "-" +cartArray[i].chosenColor )
               }
             }
         }
@@ -69,28 +75,85 @@ promiseProduct
 /*Récupérer le panier*/
 /**********************/
 
-function getCart() {
-  if(cartArray == null){
-      return alert("Votre panier est vide");
-    }
-    else {
-        console.log(JSON.parse(cartArray));
-        return JSON.parse(cartArray);
-    };
-  }
-getCart();
 
-/***********************/
-/*Modifier la quantité*/
-/***********************/
+// function getCart() {
+//   if(cartArray == null){
+//       return alert("Votre panier est vide");
+//     }
+//     else {
+//         console.log(JSON.parse(cartArray));
+//         return JSON.parse(cartArray);
+//     };
+//   }
+// getCart();
 
 
-
-
+/*************/
+/*Delete item*/
+/*************/
 
 
 
 
+//Déclaration et création de fonction suppression de l'article au click du bouton "Supprimer"
+const addDeleteAction = (id) => {
+console.log(id)
+
+  const deleteItem = document.getElementById(id).querySelector(".deleteItem");
+  const item = document.getElementById(id);
+  deleteItem.addEventListener("click", () => {
+    console.log("toto")
+      const idItem = item.getAttribute("id");
+      const id = idItem.split('-')
+      const colorItem = item.getAttribute("data-color");
+      localStorageProduct = localStorageProduct.filter(
+          (p) => p.id !== id[0] || p.color !== colorItem
+      );
+      localStorage.setItem("cart", JSON.stringify(localStorageProduct));
+      displayCart();
+      displayTotalPrice();
+      displayTotalQuantity();
+  });
+};
+
+/*
+
+const deleteBtn = document.getElementsByClassName('deleteItem');
+function deleteItem () {
+ document
+  .querySelectorAll(".deleteBtn")
+  .addEventListener('click', function() {
+    deleteBtn.closest('.cart__item').remove();
+ })
+};
+deleteItem ();
+
+*/
+
+
+
+
+/*
+ const deleteBtn = document.querySelector('.deleteItem');
+ var closeBtn = (deleteBtn.closest("btn"));
+console.log(closeBtn);
+*/
+
+/******************/
+/*Modify Quantity**/
+/******************/
+/*
+  .getElementsByClassName("itemQuantity")
+  .add("click", function() {
+  document
+    .getElementsByClassName(".itemQuantity").closest(input.value)
+    .value = (++parentClicks) + '';
+});*/
+
+
+/****************/
+/*Display Price**/
+/****************/
 
 
 
