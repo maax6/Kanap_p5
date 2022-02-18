@@ -18,9 +18,9 @@ const promiseProduct =  fetch(productsApi);
 promiseProduct
 .then((response) => response.json()
   .then(products => {
-    // console.log(products)
+    console.log(products)
     for (let i = 0; i < cartArray.length; i++) {
-        let product = false;
+        // let product = false;
         for (let j = 0; j < products.length; j++) {
             if (cartArray[i] !== undefined &&  products[j]._id !== undefined) {
               if (products[j]._id == cartArray[i].ID) {
@@ -86,18 +86,18 @@ const addDeleteAction = (id) => {
   const item = document.getElementById(id);
   deleteItem.addEventListener("click", (event) => {
     event.preventDefault();
-    console.log("toto")
-      const idItem = item.getAttribute("id");
-      const id = idItem.split('-');
-      const colorItem = item.getAttribute("data-color");
-      localStorageProduct = cartArray.filter(
-          (p) => p.id !== id[0] || p.color !== colorItem
+    const idItem = item.getAttribute("id");
+    const id = idItem.split('-');
+    const colorItem = item.getAttribute("data-color");
+    localStorageProduct = cartArray.filter(
+      (p) => p.ID !== id[0] || p.chosenColor !== colorItem
       );
       localStorage.setItem("cart", JSON.stringify(localStorageProduct));
       // displayCart();
       // displayTotalPrice();
       // displayTotalQuantity();
-  });
+    });
+    console.log("toto")
 };
 
 /*
