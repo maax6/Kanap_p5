@@ -38,7 +38,7 @@ promiseProduct
                 /**************/
                 /*Display HTML*/
                 /**************/
-                let displayItem =  
+                let displayItem =
                                   `<article class="cart__item" data-id="${id}" data-color="${color}" id="${cartArray[i].ID + '-' +cartArray[i].chosenColor}">
                                     <div class="cart__item__img">
                                       <img src="${imageUrl}">
@@ -62,8 +62,8 @@ promiseProduct
                                   </article>`;
                                   // console.log(displayItem)
                                   
-                                  document.querySelector('#cart__items').innerHTML += displayItem;
-                                  addDeleteAction(cartArray[i].ID + "-" +cartArray[i].chosenColor )
+              document.querySelector('#cart__items').innerHTML += displayItem;
+              addDeleteAction(cartArray[i].ID + "-" +cartArray[i].chosenColor )
               }
             }
         }
@@ -71,48 +71,32 @@ promiseProduct
   })
 )
 
-/**********************/
-/*Récupérer le panier*/
-/**********************/
 
-
-// function getCart() {
-//   if(cartArray == null){
-//       return alert("Votre panier est vide");
-//     }
-//     else {
-//         console.log(JSON.parse(cartArray));
-//         return JSON.parse(cartArray);
-//     };
-//   }
-// getCart();
 
 
 /*************/
 /*Delete item*/
 /*************/
-
-
-
-
-//Déclaration et création de fonction suppression de l'article au click du bouton "Supprimer"
 const addDeleteAction = (id) => {
-console.log(id)
+  console.log(id)
+  console.log(typeof(id));
 
-  const deleteItem = document.getElementById(id).querySelector(".deleteItem");
+
+  const deleteItem = document.querySelector(".deleteItem");//.getElementById(id)
   const item = document.getElementById(id);
-  deleteItem.addEventListener("click", () => {
+  deleteItem.addEventListener("click", (event) => {
+    event.preventDefault();
     console.log("toto")
       const idItem = item.getAttribute("id");
-      const id = idItem.split('-')
+      const id = idItem.split('-');
       const colorItem = item.getAttribute("data-color");
-      localStorageProduct = localStorageProduct.filter(
+      localStorageProduct = cartArray.filter(
           (p) => p.id !== id[0] || p.color !== colorItem
       );
       localStorage.setItem("cart", JSON.stringify(localStorageProduct));
-      displayCart();
-      displayTotalPrice();
-      displayTotalQuantity();
+      // displayCart();
+      // displayTotalPrice();
+      // displayTotalQuantity();
   });
 };
 
@@ -131,7 +115,21 @@ deleteItem ();
 */
 
 
+/**********************/
+/*Récupérer le panier*/
+/**********************/
 
+
+// function getCart() {
+//   if(cartArray == null){
+//       return alert("Votre panier est vide");
+//     }
+//     else {
+//         console.log(JSON.parse(cartArray));
+//         return JSON.parse(cartArray);
+//     };
+//   }
+// getCart();
 
 /*
  const deleteBtn = document.querySelector('.deleteItem');
@@ -155,8 +153,7 @@ console.log(closeBtn);
 /*Display Price**/
 /****************/
 
-
-
+let price = document.getElementsByClassName('itemQuantity')
 
 
 
