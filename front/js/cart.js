@@ -10,7 +10,7 @@ promiseProduct.then((response) =>
   response.json().then((products) => {
     // console.log(products);
     for (let i = 0; i < cartArray.length; i++) {
-      // let product = false;
+    // let product = false;
       for (let j = 0; j < products.length; j++) {
         if (cartArray[i] !== undefined && products[j]._id !== undefined) {
           if (products[j]._id == cartArray[i].ID) {
