@@ -1,15 +1,9 @@
-                                  /**********************/
-                                  /*Fetch & HTML Display*/
-                                  /**********************/
-
 const cartArray = JSON.parse(localStorage.getItem("cart"));
 let totalPrice = 0;
-let totalItem = 0;
-
 // console.log(cartArray) //(4) [{…}, {…}, {…}, {…}] Localstorage
-let mapID = cartArray.map((item) => item.ID);
-let mapColors = cartArray.map((item) => item.chosenColor);
-let mapQty = cartArray.map((item) => item.chosenQuantity);
+// let mapID = cartArray.map((item) => item.ID);
+// let mapColors = cartArray.map((item) => item.chosenColor);
+// let mapQty = cartArray.map((item) => item.chosenQuantity);
 const productsApi = "http://localhost:3000/api/products/";
 const promiseProduct = fetch(productsApi);
 promiseProduct.then((response) =>
@@ -44,11 +38,11 @@ promiseProduct.then((response) =>
                                       <div class="cart__item__content__description">
                                         <h2>${name}</h2>
                                         <p>${color}</p>
-                                        <p>${price + "€"}</p>
+                                        <p data-price ="${price}" >${price + "€"}</p>
                                       </div>
                                       <div class="cart__item__content__settings">
                                         <div class="cart__item__content__settings__quantity">
-                                          <p>Qté : ${Qty}</p>
+                                          <p data-qty ="${Qty}" >Qté : ${Qty}</p>
                                           <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${Qty}">
                                         </div>
                                         <div class="cart__item__content__settings__delete">
@@ -61,7 +55,6 @@ promiseProduct.then((response) =>
                                       </div>
                                     </div>
                                   </article>`;
-
             document.querySelector("#cart__items").innerHTML += displayItem;
           }
         }
@@ -70,18 +63,14 @@ promiseProduct.then((response) =>
             /*************/
             /*Delete item*/
             /*************/
-
     const btnDelete = document.querySelectorAll(".deleteItem");
     btnDelete.forEach((btn) => {
-
-      const closeArticle = btn.closest("article");
+      const closeArticle = btn.closest("article")
       const id = closeArticle.dataset.id;
       const color = closeArticle.dataset.color;
-
       btn.addEventListener("click", (event) => {
-        console.log(id + " en couleur => " + color);
+        console.log(" ID => " + id + " Couleur => " + color);
         event.preventDefault();
-
         cartArray.forEach((couch) => {
           if (couch.chosenColor == color && couch.ID == id) {
             let index = cartArray.indexOf(couch); // récupération index du canapé dans le tableau cartArray
@@ -96,25 +85,43 @@ promiseProduct.then((response) =>
         localStorage.setItem("cart", JSON.stringify(cartArray));  
       });
     });
-        const quantitySelected = document.querySelectorAll("input.itemQuantity");
-        
-        console.log(quantitySelected);
-
-
     /******************/
     /*Modify Quantity**/
     /******************/
 
-  
+    /******************/
+    /*total  Quantity**/
+    /******************/
     
     
+    
+    
+    
+    let totalItem = [];
+    function itemQuantity(cartArray) {
+      for (let couch of cartArray) {
+        let itemQuantity = couch.chosenQuantity
+        totalItem.push(itemQuantity);
+        console.log(totalItem)
+        const reducer =(previousValue, currentValue) => previousValue + currentValue;
+        const totalQuantity = totalItem.reduce(reducer);
+           console.log(totalQuantity)
+         document.getElementById("totalQuantity").innerText = totalQuantity;
+        } 
+       if (totalItem.length === 0) {
+         document.querySelector("h1").innerText = "Votre panier est vide";
+         totalQuantity = "";
+         document.getElementById("totalQuantity").innerText = totalItem;
+       }
+    }
     
     /**⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆/
-    /FAUT LES METTRE ICI/
-    /⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆*/
+     /FAUT LES METTRE ICI/
+     /⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆*/
+     itemQuantity(cartArray);
   })
 );
-
+    
 
 
 
@@ -133,3 +140,20 @@ promiseProduct.then((response) =>
 //reduce le tableau
 
 // .innerHTML += reducedPrice
+
+
+
+/*********************/
+/*Display Total Price
+
+    const priceProduct = document.dataset()
+    cartArray.forEach((couch) => {
+      if (couch.ID == id){
+      console.log(couch.ID)
+    }
+      totalPriceQuantity = products.price * couch.chosenQuantity;
+        priceArray.push(totalPriceQuantity);
+ 
+        document.getElementById("totalPrice").innerText = totalPrice;
+      })
+**********************/
