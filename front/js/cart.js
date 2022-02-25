@@ -57,7 +57,6 @@ promiseProduct
                                     </div>
                                   </article>`;
             document.querySelector("#cart__items").innerHTML += displayItem;
-            totalItem.push(Qty)
           }
         }
       }
@@ -125,7 +124,7 @@ promiseProduct
       for (let couch of cartArray) {
         let itemQuantity = couch.chosenQuantity
         totalItem.push(itemQuantity);
-        // console.log(totalItem)
+        console.log(totalItem)
         const reducer =(previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue);
         const totalQuantity = totalItem.reduce(reducer);
           //  console.log(totalQuantity)
@@ -168,10 +167,13 @@ promiseProduct
         console.log(qtyValue)
         const closeQty = price.closest(".qty");
 
-        let totalPrice = priceProduct * qtyValue;
+        let totals = priceProduct * qtyValue;
 
-        console.log(totalPrice)
-        
+        console.log(totals)
+        totalPrice.push(totals)
+        const reducer =(previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue);
+        total = totalPrice.reduce(reducer)
+        document.getElementById('totalPrice').textContent = total
       })
 
 
