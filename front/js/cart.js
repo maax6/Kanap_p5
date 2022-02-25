@@ -112,7 +112,10 @@ promiseProduct
          }
         }
       });
-      localStorage.setItem("cart", JSON.stringify(cartArray));
+      if(confirm( "Êtes-vous sur de vouloir modifier la quantité")){
+        window.location.reload();
+        localStorage.setItem("cart", JSON.stringify(cartArray));
+      }
     });
   });
 
@@ -137,55 +140,29 @@ promiseProduct
        }
     }
       itemQuantity(cartArray);
-
-      /****************/
-      /*Display Price**/
-      /****************/
-
       
       /****************/
       /*Display Price**/
       /****************/
 
-
-
-
-
-
-
-
-
-
       let priceTag = document.querySelectorAll(".price")
       priceTag.forEach((price) => {
+        
         const closeArticle = price.closest("article")
-        console.log(closeArticle)
+        const qtyValue = closeArticle.dataset.qty
+
         const closePrice = price.closest(".price")
         const priceProduct = closePrice.dataset.price
-        console.log(priceProduct)
-        const qtyValue = closeArticle.dataset.qty
-        console.log(qtyValue)
-        const closeQty = price.closest(".qty");
 
         let totals = priceProduct * qtyValue;
 
         console.log(totals)
         totalPrice.push(totals)
         const reducer =(previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue);
-        total = totalPrice.reduce(reducer)
-        document.getElementById('totalPrice').textContent = total
+        let total = totalPrice.reduce(reducer)
+        document.getElementById('totalPrice').textContent = total;
       })
 
-
-      
-      // let priceByItem = parseInt(qtyItem) * parseInt(priceTag);
-      //        console.log(qty
-      
-        // for (let couch of cartArray) {
-        //  let itemPrice = cartArray.chosenQuantity;
-        //  let totalPrice = priceElem * couch.chosenQuantity;
-
-        // }
       /**⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆/
        /⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆*/
   })
@@ -193,31 +170,3 @@ promiseProduct
 
   
 );
-
-
-
-// let apiArray = [];
-// .then(apiResponse => {
-//   // Récupérer tous les produits de l'API
-//   for (let allProducts of apiResponse){
-//       apiArray.push(AllProducts)
-//   };
-// })
-
-
-
-
-/*********************/
-/*Display Total Price
-
-    const closePrice = document.dataset()
-    cartArray.forEach((couch) => {
-      if (couch.ID == id){
-      console.log(couch.ID)
-    }
-      totalPriceQuantity = products.price * couch.chosenQuantity;
-      priceArray.push(totalPriceQuantity);
-      
-        document.getElementById("totalPrice").innerText = totalPrice;
-      })
-**********************/
