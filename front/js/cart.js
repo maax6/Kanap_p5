@@ -83,6 +83,7 @@ promiseProduct
           }
         });
         localStorage.setItem("cart", JSON.stringify(cartArray));  
+        window.location.reload();
       });
     });
   /******************/
@@ -127,12 +128,12 @@ promiseProduct
       for (let couch of cartArray) {
         let itemQuantity = couch.chosenQuantity
         totalItem.push(itemQuantity);
-        console.log(totalItem)
         const reducer =(previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue);
         const totalQuantity = totalItem.reduce(reducer);
-          //  console.log(totalQuantity)
-         document.getElementById("totalQuantity").innerText = totalQuantity;
+        //  console.log(totalQuantity)
+        document.getElementById("totalQuantity").innerText = totalQuantity;
       } 
+      console.log(totalItem)
        if (totalItem.length === 0) {
          document.querySelector("h1").innerText = "Votre panier est vide";
          totalQuantity = "";
@@ -160,13 +161,118 @@ promiseProduct
         totalPrice.push(totals)
         const reducer =(previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue);
         let total = totalPrice.reduce(reducer)
+        console.log(total)
         document.getElementById('totalPrice').textContent = total;
       })
+
+      
 
       /**⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆/
        /⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆*/
   })
-
-
-  
 );
+
+
+
+
+
+      /****************/
+      /*Form handling**/
+      /****************/
+      
+      const firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
+      const lastNameErrorMsg = document.getElementById("lastNameErrorMsg ");
+      const addressErrorMsg = document.getElementById("addressErrorMsg");
+      const cityErrorMsg = document.getElementById("cityErrorMsg");
+      const emailErrorMsg = document.getElementById("emailErrorMsg");
+      const buttonValidation = document.getElementById("order");
+
+      function sendForm(cartArray, contact) {
+        let products = [];
+        for (let i = 0; i < cartArray; i++) {
+          let productId = cartArray.ID;
+          products.push(productId);
+        }
+      
+        fetch("http://localhost:3000/api/products/order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contact, products }),
+        }).then((response) => response.json()).then((data) => {
+            window.location = `confirmation.html?orderId=${data.orderId}`; // redirection vers page confirmation
+          })
+          .catch((error) =>
+            console.log("il y a une erreur sur la page cart de type :" + error)
+          );
+      }
+      /******************************/
+      /*Input CChecking witch regex**/
+      /******************************/
+      function verifyForm(elementContact, elementError, elementRegex) {
+
+        console.log("bouton clic commande")
+        
+        
+          if (elementContact.length === 0) {
+            // si le champ de l'input est vide
+            elementContact.innerText = "Veuillez renseigner ce champ";
+            return false;
+          } else if (!elementRegex.test(elementContact)) {
+            // si champ rempli mais regex non valide
+            elementError.innerText = "Format incorrect";
+            return false;
+          } else {
+            // champ ok
+            elementError.innerText = "";
+            return true;
+          }
+        }
+      const buttonValidate = document.getElementById("order");
+      const regexNameCity = /^[a-zA-ZÀ-ÿ_-]{2,60}$/;
+      const regexAddress = /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/;
+      const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
+
+
+      buttonValidate.addEventListener("click", (event) => {
+        event.preventDefault();
+        prenom = document.querySelector("#firstName").value;
+        nom = document.querySelector("#lastName").value;
+        adresse = document.querySelector("#address").value;
+        ville = document.querySelector("#city").value;
+        mail = document.querySelector("#email").value;
+      
+      
+        verifyForm(prenom, firstNameErrorMsg, regexNameCity);
+        verifyForm(nom, lastNameErrorMsg, regexNameCity);
+        verifyForm(adresse, addressErrorMsg, regexAddress);
+        verifyForm(ville, cityErrorMsg, regexNameCity);
+        verifyForm(mail, emailErrorMsg, regexEmail);
+  const contact = {
+    firstName: prenom,
+    lastName: nom,
+    address: adresse,
+    city: ville,
+    email: mail,
+  };
+  if (
+    verifyForm(prenom, firstNameErrorMsg, regexNameCity) &&
+    verifyForm(nom, lastNameErrorMsg, regexNameCity) &&
+    verifyForm(adresse, addressErrorMsg, regexAddress) &&
+    verifyForm(ville, cityErrorMsg, regexNameCity) &&
+    verifyForm(mail, emailErrorMsg, regexEmail) &&
+    cartArray.length >= 1
+  ) {
+    sendForm(cartArray, contact);
+  } else {
+    alert("verifier le formulaire, il comporte une ou plusieurs erreurs");
+    console.log(contact)
+  }
+});
+
+
+      
+      
+      
+      
+      
+      
