@@ -165,76 +165,68 @@ promiseProduct
         document.getElementById('totalPrice').textContent = total;
       })
 
-      
-
       /**⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆/
        /⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆*/
   })
 );
-
-
-
-
-
       /****************/
       /*Form handling**/
       /****************/
-      
       const firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
       const lastNameErrorMsg = document.getElementById("lastNameErrorMsg ");
       const addressErrorMsg = document.getElementById("addressErrorMsg");
       const cityErrorMsg = document.getElementById("cityErrorMsg");
       const emailErrorMsg = document.getElementById("emailErrorMsg");
-      const buttonValidation = document.getElementById("order");
-
+      
+      const buttonValidate = document.getElementById("order");
+  
+      const regexNameCity = /^[a-zA-Z\u0080-\u024F\s\/\-\)\(\`\.\"\']+$/ ;  /* /^[a-zA-ZÀ-ÿ_-]{2,60}$/; */
+      const regexAddress = /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/;
+      const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
+      
       function sendForm(cartArray, contact) {
         let products = [];
         for (let i = 0; i < cartArray; i++) {
           let productId = cartArray.ID;
           products.push(productId);
         }
-      
+        
         fetch("http://localhost:3000/api/products/order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ contact, products }),
         }).then((response) => response.json()).then((data) => {
-            window.location = `confirmation.html?orderId=${data.orderId}`; // redirection vers page confirmation
-          })
-          .catch((error) =>
-            console.log("il y a une erreur sur la page cart de type :" + error)
-          );
+          window.location = `confirmation.html?orderId=${data.orderId}`; // redirection vers page confirmation
+          localStorage.clear();
+        })
+        .catch((error) =>
+        console.log("il y a une erreur sur la page cart de type :" + error)
+        );
       }
-      /******************************/
+      
+      
+      
+      buttonValidate.addEventListener("click", (event) => {
+        /******************************/
       /*Input CChecking witch regex**/
       /******************************/
+      event.preventDefault();
       function verifyForm(elementContact, elementError, elementRegex) {
-
-        console.log("bouton clic commande")
-        
-        
-          if (elementContact.length === 0) {
-            // si le champ de l'input est vide
-            elementContact.innerText = "Veuillez renseigner ce champ";
-            return false;
-          } else if (!elementRegex.test(elementContact)) {
-            // si champ rempli mais regex non valide
-            elementError.innerText = "Format incorrect";
-            return false;
-          } else {
-            // champ ok
-            elementError.innerText = "";
+        if (elementContact.length === 0) {
+          // si le champ de l'input est vide
+          elementContact.innerText = "Veuillez renseigner ce champ";
+          return false;
+        } else if (!elementRegex.test(elementContact)) {
+          // si champ rempli mais regex non valide
+          elementError.innerText = "Format incorrect";
+          return false;
+        } else {
+          // champ ok
+          console.log("verifyForm FUNCTION")
             return true;
           }
         }
-      const buttonValidate = document.getElementById("order");
-      const regexNameCity = /^[a-zA-ZÀ-ÿ_-]{2,60}$/;
-      const regexAddress = /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/;
-      const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
-
-
-      buttonValidate.addEventListener("click", (event) => {
-        event.preventDefault();
+        
         prenom = document.querySelector("#firstName").value;
         nom = document.querySelector("#lastName").value;
         adresse = document.querySelector("#address").value;
@@ -261,18 +253,12 @@ promiseProduct
     verifyForm(ville, cityErrorMsg, regexNameCity) &&
     verifyForm(mail, emailErrorMsg, regexEmail) &&
     cartArray.length >= 1
-  ) {
-    sendForm(cartArray, contact);
-  } else {
-    alert("verifier le formulaire, il comporte une ou plusieurs erreurs");
-    console.log(contact)
+    ) {
+      sendForm(cartArray, contact);
+      console.log(contact)
+    } else {
+      alert("Vérifiez le formulaire, il comporte une ou plusieurs erreurs");
   }
 });
 
 
-      
-      
-      
-      
-      
-      
