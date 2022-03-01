@@ -27,8 +27,9 @@ getProductDetails()
 //////////////////
 //Gestion panier//
 //////////////////
-// Enregistrer le produit dans le localStorage sous la clé cart "cart.
 
+
+// Enregistrer le produit dans le localStorage sous la clé cart "cart.
 document.getElementById('addToCart').addEventListener("click", (event)=>{
   event.preventDefault();
   let chosenColor = document. querySelector("#colors").value;
