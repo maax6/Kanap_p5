@@ -60,7 +60,9 @@ document.getElementById('addToCart').addEventListener("click", (event)=>{
       }
       productLocalStorage.push(article);
     }
-    localStorage.setItem("cart", JSON.stringify(productLocalStorage));
+    localStorage.setItem("cart", JSON.stringify(productLocalStorage))
+     window.alert("Votre article a bien été ajouté au panier.");
+    window.location = `index.html` ;
   }
   else {
     window.alert("Veuillez choisir une quantitié ainsi qu'une couleur pour votre canapé 😉 🛋")

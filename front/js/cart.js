@@ -191,8 +191,8 @@ const emailErrorMsg = document.getElementById("emailErrorMsg");
 
 const buttonValidate = document.getElementById("order");
 
-const regexNameCity =  /^[a-zA-ZÀ-ÿ_-]{2,60}$/;
-const regexAddress = /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/;
+const regexNameCity = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/  ///^[a-zA-ZÀ-ÿ_-]{2,60}$/;
+const regexAddress =  /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/; 
 const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
 
 //La fonction sendForm prends en paramêtres, l'objet array du localStorage et l'array contact
