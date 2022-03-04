@@ -36,7 +36,7 @@ promiseProduct.then((response) =>
           
             let displayItem = `<article class="cart__item" data-id="${id}" data-color="${color}" data-qty ="${Qty}">
                                     <div class="cart__item__img">
-                                      <img src="${imageUrl}">
+                                      <img src="${imageUrl}" alt="${altTxt}">
                                     </div>
                                     <div class="cart__item__content">
                                       <div class="cart__item__content__description">
@@ -107,7 +107,7 @@ promiseProduct.then((response) =>
       btn.addEventListener("change", (event) => {
         event.preventDefault();
         quantityUpdate = Number(btn.value);
-        ;
+        
         cartArray.forEach((couch) => {
           if (couch.chosenColor == color && couch.ID == id) {
             couch.chosenQuantity = quantityUpdate;
@@ -144,7 +144,7 @@ promiseProduct.then((response) =>
         //  console.log(totalQuantity)
         document.getElementById("totalQuantity").innerText = totalQuantity;
       }
-      console.log(totalItem);
+      // console.log(totalItem);
       if (totalItem.length === 0 ) {
         document.querySelector("h1").innerText = "Votre panier est vide";
         totalQuantity = "";
@@ -157,8 +157,8 @@ promiseProduct.then((response) =>
     /****************/
 
     //Pour chaque balise "price" on récupère l'information quantité via dataset sur chaque article le plus proche.
-    // On envoie chaque valeur dans le tableau totalPrice, puis on transforme chaque valeur en nombre avec parseInt
-    //On additionne chaque valeur du tableau avec la précédente pour afficher le prix via textContent dans l'element totalPrice
+    // On envoie chaque valeur dans le tableau totalPrice, puis on transforme chaque valeur en nombre entier
+    //On additionne chaque valeur du tableau avec la précédente pour afficher le prix via textContent dans l'élément totalPrice
     let priceTag = document.querySelectorAll(".price");
     priceTag.forEach((price) => {
       const closeArticle = price.closest("article");
@@ -191,7 +191,7 @@ const emailErrorMsg = document.getElementById("emailErrorMsg");
 
 const buttonValidate = document.getElementById("order");
 
-const regexNameCity = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/  ///^[a-zA-ZÀ-ÿ_-]{2,60}$/;
+const regexNameCity = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/  //Nom prenom et Ville;
 const regexAddress =  /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/; 
 const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
 
@@ -214,7 +214,7 @@ function sendForm(cartArray, contact) {
   })
     .then((response) => response.json())
     .then((data) => {
-      window.location = `confirmation.html?orderId=${data.orderId}`; // redirection vers page confirmation
+      window.location = `confirmation.html?orderId=${data.orderId}`; // redirection vers page confirmation avec uuid en paramètre
       localStorage.clear();
     })
     .catch((error) =>
@@ -222,7 +222,7 @@ function sendForm(cartArray, contact) {
     );
 }
 /******************************/
-/*Input CChecking witch regex**/
+/*Input Checking witch regex**/
 /******************************/
 
 //Au click on on utilie la fonction verifyForm pour vérifier si chaque input du formulaire respecte sa regex associée.
@@ -268,6 +268,5 @@ buttonValidate.addEventListener("click", (event) => {
     verifyForm(mail, emailErrorMsg, regexEmail)
   ) {
     sendForm(cartArray, contact);
-    console.log(contact);
   }
 });
