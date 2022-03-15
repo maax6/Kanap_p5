@@ -28,6 +28,7 @@ getProductDetails();
 /***************/
 /*Gestion panier/
 /***************/
+//evenement au clic.
 //Si la quantité choisie est supérieure à 0 et inférieure à 100
 //On récupère le localStorage ou un tableau vide
 //Compare les ID et couleurs si elles sont identiques, on les additionne dans le localStorage

@@ -10,7 +10,7 @@ function getProducts() {
     .then((data) =>data.json()
       .then((data) => {
         for (let i = 0; i < data.length; i++) { 
-          let name = data[i].name;
+          let name = data[i].name; 
           let imageUrl = data[i].imageUrl;
           let price = data[i].price;
           let id = data[i]._id;
@@ -30,7 +30,4 @@ function getProducts() {
       })
   );
 }
-
 getProducts();
-
- 

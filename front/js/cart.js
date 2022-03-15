@@ -225,7 +225,7 @@ function sendForm(cartArray, contact) {
 /*Input Checking witch regex**/
 /******************************/
 
-//Au click on on utilie la fonction verifyForm pour vérifier si chaque input du formulaire respecte sa regex associée.
+//Au click on utilise la fonction verifyForm pour vérifier si chaque input du formulaire respecte sa regex associée.
 //Si une erreur est rencontrée, elle retourne un message d'erreur.
 //Si aucune erreur n'en rencontrée, elle utilise la fonction sendForm pour envoyer le contenu du local storage (cartArray) et l'objet contact à l'API.
 buttonValidate.addEventListener("click", (event) => {
@@ -233,8 +233,8 @@ buttonValidate.addEventListener("click", (event) => {
 
   function verifyForm(elementContact, elementError, elementRegex) {
     if (!elementRegex.test(elementContact)) {
-      console.log(elementContact);
-      console.log(elementError);
+      // console.log(elementContact);
+      // console.log(elementError);
       elementError.innerText = "Format incorrect";
       return false;
     } else {
