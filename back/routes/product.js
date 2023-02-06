@@ -7,4 +7,4 @@ router.get('/', productCtrl.getAllProducts);
 router.get('/:id', productCtrl.getOneProduct);
 router.post('/order', productCtrl.orderProducts);
 
-module.exports = router;
+module.exports = router; 
